@@ -1,9 +1,9 @@
 :root {
-    --primary: #ff4d8d;
-    --secondary: #667eea;
-    --accent: #ffb347;
-    --light: #fff9fb;
-    --dark: #333;
+    --primary: #4a6bff;     /* Красивый синий вместо розового */
+    --secondary: #6ee7ff;   /* Голубой */
+    --accent: #36d1dc;      /* Бирюзовый акцент */
+    --light: #f0f8ff;       /* Светло-голубой фон (AliceBlue) */
+    --dark: #2c3e50;        /* Темно-синий текст */
 }
 
 * {
@@ -14,7 +14,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #4a6bff, #6ee7ff, #36d1dc, #2c3e50);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     min-height: 100vh;
