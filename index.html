@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Али — Главная ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Плавающие сердечки -->
+    <div class="floating-hearts" id="hearts-container"></div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">Для Али ❤️</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a>
+            <a href="memories.html" class="nav-link"><i class="fas fa-photo-video"></i> Воспоминания</a>
+            <a href="secret.html" class="nav-link"><i class="fas fa-lock"></i> Секрет</a>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <div class="hero">
+            <h1 class="hero-title">Привет, Аля! 💖</h1>
+            <p class="hero-subtitle">
+                Этот сайт создан специально для тебя на 14 февраля.
+                Здесь собраны наши воспоминания, чувства и обещания на будущее.
+            </p>
+
+            <div class="counter-box">
+                <h2>📅 Мы вместе уже:</h2>
+                <div class="counter-number" id="days-counter">0</div>
+                <p>дней счастливой любви! ❤️</p>
+                <p><small>С 18.06.2024</small></p>
+            </div>
+        </div>
+
+        <div class="quote-box">
+            <i class="fas fa-quote-left" style="color: var(--accent); margin-right: 10px;"></i>
+            <span id="love-quote">Любовь — это когда тихо и спокойно на душе.</span>
+            <i class="fas fa-quote-right" style="color: var(--accent); margin-left: 10px;"></i>
+        </div>
+
+        <div class="interactive-box">
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-heart"></i> Случайный комплимент</h3>
+                <p id="random-message">Нажми кнопку, чтобы получить комплимент!</p>
+                <button class="button" onclick="getRandomMessage()">
+                    <i class="fas fa-gift"></i> Получить комплимент
+                </button>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Наша история</h3>
+                <p>Мы познакомились 18.06.2024</p>
+                <p>Это было <span id="days-together">0</span> дней назад</p>
+                <a href="memories.html" class="button">
+                    <i class="fas fa-photo-video"></i> Все воспоминания
+                </a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-lock"></i> Секретная страница</h3>
+                <p>Только для тебя есть секретное послание</p>
+                <a href="secret.html" class="button" style="background: linear-gradient(45deg, var(--accent), #ff6b6b);">
+                    <i class="fas fa-key"></i> Открыть секрет
+                </a>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin: 60px 0 30px; color: var(--primary);">
+            <i class="fas fa-star"></i> Недавние воспоминания
+        </h2>
+
+        <div class="memories-grid" id="recent-memories">
+            <!-- Воспоминания будут загружены через JS -->
+        </div>
+
+        <div class="counters-container">
+            <div class="counter-card">
+                <div class="counter-number-small" id="hours-together">0</div>
+                <div class="counter-label">Часов вместе</div>
+            </div>
+            <div class="counter-card">
+                <div class="counter-number-small" id="minutes-together">0</div>
+                <div class="counter-label">Минут вместе</div>
+            </div>
+            <div class="counter-card">
+                <div class="counter-number-small" id="seconds-together">0</div>
+                <div class="counter-label">Секунд вместе</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <p>Создано с ❤️ специально для Али</p>
+        <p class="love-counter">💝 Каждая секунда с тобой — подарок 💝</p>
+        <p><small>© 2024 День Святого Валентина</small></p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/hearts.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCounters();
+            loadRecentMemories();
+            createHearts();
+
+            // Обновляем счетчики каждую секунду
+            setInterval(updateCounters, 1000);
+
+            // Создаем сердечки при клике
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+                    createClickHeart(e.clientX, e.clientY);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

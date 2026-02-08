@@ -1,0 +1,82 @@
+/* Анимации */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Плавающие сердечки */
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.heart {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0;
+    animation: float 8s linear infinite;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Анимации для элементов */
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.slide-in {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Анимация для кнопок */
+.button, .nav-link, .memory-card, .card {
+    animation: fadeIn 0.5s ease;
+}

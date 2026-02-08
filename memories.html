@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши воспоминания 📸 | Аля</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Плавающие сердечки -->
+    <div class="floating-hearts" id="hearts-container"></div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">Для Али ❤️</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a>
+            <a href="memories.html" class="nav-link active"><i class="fas fa-photo-video"></i> Воспоминания</a>
+            <a href="secret.html" class="nav-link"><i class="fas fa-lock"></i> Секрет</a>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Наши воспоминания 📸</h1>
+            <p style="color: #666; font-size: 1.2em;">
+                Каждый момент с тобой — это отдельная история в моем сердце
+            </p>
+        </div>
+
+        <div class="memories-container" id="all-memories">
+            <!-- Воспоминания будут загружены через JS -->
+        </div>
+
+        <div id="no-memories" style="display: none;">
+            <div class="empty-state">
+                <div class="empty-icon">💭</div>
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    Здесь пока нет воспоминаний...
+                </h2>
+                <p style="font-size: 1.2em; color: #666; margin-bottom: 20px;">
+                    Но это не страшно! Каждый новый день с тобой — это новое прекрасное воспоминание.
+                </p>
+                <p style="font-size: 1.1em; color: #888;">
+                    Скоро здесь появятся фотографии наших лучших моментов! ❤️
+                </p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Вернуться на главную
+            </a>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <p>Создано с ❤️ специально для Али</p>
+        <p class="love-counter">💝 Каждая секунда с тобой — подарок 💝</p>
+        <p><small>© 2024 День Святого Валентина</small></p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/hearts.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllMemories();
+            createHearts();
+
+            // Создаем сердечки при клике
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    createClickHeart(e.clientX, e.clientY);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
