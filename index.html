@@ -117,11 +117,11 @@
                 <!-- Дополнительная статистика -->
                 <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px;">
                     <div style="text-align: center;">
-                        <div style="font-size: 2rem; color: var(--blood-red);">8</div>
+                        <div style="font-size: 2rem; color: var(--blood-red);" id="memories-counter">0</div>
                         <div style="font-size: 0.9rem; color: var(--silver);">Тёмных воспоминаний</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="font-size: 2rem; color: var(--blood-red);">10</div>
+                        <div style="font-size: 2rem; color: var(--blood-red);" id="compliments-counter">0</div>
                         <div style="font-size: 0.9rem; color: var(--silver);">Смертельных комплиментов</div>
                     </div>
                     <div style="text-align: center;">
@@ -300,18 +300,14 @@
         });
 
         // Комплименты в стиле Уэнздей
+        // Комплименты в стиле Уэнздей
         function getWednesdayCompliment() {
-            const compliments = [
-            "Ты — смертельная булавочка в стоге жизни!",
-            "Твоя улыбка весьма убийственна!",
-            "Я скучаю по тебе, а когда ты рядом, переживаю, что стану хайдом!",
-            "Общение с тобой — лучший способ тренировки перикарда!",
-            "Ты — самый ядовитый и прекрасный цветок в моём гербарии!",
-            "Мне нравится, как твой взгляд насквозь пронзает банальность этого мира! ",
-            "Ты — трещина в стене моего идеального одиночества!️",
-            "Твой ум острее, чем любой клинок в зале фехтования!",
-            "Ты — самая захватывающая катастрофа, которую я когда-либо наблюдал!",
-            ];
+            const compliments = SITE_DATA.messages; // Используем реальные сообщения из data.js
+
+            if (!compliments || compliments.length === 0) {
+                document.getElementById('random-message').textContent = "Сообщений пока нет... странно.";
+                return;
+            }
 
             const compliment = compliments[Math.floor(Math.random() * compliments.length)];
             document.getElementById('random-message').textContent = compliment;
@@ -372,11 +368,15 @@
         }
 
         // Загрузка воспоминаний
+        // Функция для загрузки недавних воспоминаний
         function loadRecentMemories() {
             const container = document.getElementById('recent-memories');
             if (!container) return;
 
             const memories = getRecentMemories();
+
+            // Обновляем счетчик воспоминаний
+            updateStatisticsCounters();
 
             if (memories.length === 0) {
                 container.innerHTML = `

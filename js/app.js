@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Обновляем счетчики сразу
     updateCounters();
+    updateStatisticsCounters();
 
     // Загружаем воспоминания если есть контейнер
     if (document.getElementById('recent-memories')) {
@@ -152,6 +153,20 @@ function loadAllMemories() {
     `).join('');
 }
 
+// Обновление счетчиков статистики
+function updateStatisticsCounters() {
+    // Счетчик воспоминаний
+    const memoriesElement = document.getElementById('memories-counter');
+    if (memoriesElement && SITE_DATA.memories) {
+        memoriesElement.textContent = SITE_DATA.memories.length;
+    }
+
+    // Счетчик комплиментов (сообщений)
+    const complimentsElement = document.getElementById('compliments-counter');
+    if (complimentsElement && SITE_DATA.messages) {
+        complimentsElement.textContent = SITE_DATA.messages.length;
+    }
+}
 // Обновляем глобальные функции
 window.createClickStar = createClickStar;
 window.createStarExplosionEffect = createStarExplosionEffect;
