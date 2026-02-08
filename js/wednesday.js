@@ -109,36 +109,165 @@ function playWednesdaySound(type) {
     console.log(sounds[type] || '🎹');
 }
 
+// В wednesday.js замените ВСЮ функцию showCrypticMessage на эту:
+
 // Тайные послания как у Уэнздей
-function showCrypticMessage(message) {
+function showCrypticMessage(message, duration = 10000) { // 10 секунд по умолчанию
+    // Удаляем предыдущее сообщение, если есть
+    const existingMessage = document.querySelector('.cryptic-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+
     const messageDiv = document.createElement('div');
     messageDiv.className = 'cryptic-message';
-    messageDiv.textContent = message;
+
+    messageDiv.innerHTML = `
+        <div class="cryptic-content">
+            <span class="cryptic-close" onclick="this.parentElement.parentElement.remove()">✕</span>
+            <div class="cryptic-text">${message}</div>
+            <div class="cryptic-footer">
+                <i class="fas fa-spider"></i>
+                <small>сообщение исчезнет через <span id="countdown">${duration/1000}</span> сек.</small>
+            </div>
+        </div>
+    `;
+
     messageDiv.style.cssText = `
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: var(--black);
-        color: var(--blood-red);
-        padding: 30px;
+        background: linear-gradient(135deg,
+            rgba(10, 10, 10, 0.95) 0%,
+            rgba(26, 26, 26, 0.98) 100%);
+        color: var(--silver);
+        padding: 0;
         border: 3px solid var(--blood-red);
         font-family: 'Courier New', monospace;
         font-size: 1.2rem;
         z-index: 10000;
         max-width: 80%;
+        min-width: 300px;
         text-align: center;
         box-shadow: 0 0 40px rgba(139, 0, 0, 0.5);
+        border-radius: 5px;
+        overflow: hidden;
     `;
 
     document.body.appendChild(messageDiv);
 
+    // Стили для внутреннего содержимого
+    const crypticContent = messageDiv.querySelector('.cryptic-content');
+    crypticContent.style.cssText = `
+        padding: 30px;
+        position: relative;
+    `;
+
+    // Кнопка закрытия
+    const closeBtn = messageDiv.querySelector('.cryptic-close');
+    closeBtn.style.cssText = `
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: var(--blood-red);
+        font-size: 1.5rem;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s;
+        z-index: 10001;
+    `;
+
+    closeBtn.onmouseover = function() {
+        this.style.backgroundColor = 'rgba(139, 0, 0, 0.2)';
+        this.style.transform = 'scale(1.1)';
+    };
+
+    closeBtn.onmouseout = function() {
+        this.style.backgroundColor = 'transparent';
+        this.style.transform = 'scale(1)';
+    };
+
+    // Футер с таймером
+    const crypticFooter = messageDiv.querySelector('.cryptic-footer');
+    crypticFooter.style.cssText = `
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px solid var(--light-gray);
+        font-size: 0.9rem;
+        color: var(--light-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    `;
+
+    // Текст сообщения
+    const crypticText = messageDiv.querySelector('.cryptic-text');
+    crypticText.style.cssText = `
+        margin: 20px 0;
+        line-height: 1.6;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    `;
+
+    // Анимация появления
+    messageDiv.style.opacity = '0';
+    messageDiv.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    messageDiv.style.transition = 'all 0.3s ease';
+
     setTimeout(() => {
-        if (messageDiv.parentNode) {
-            messageDiv.parentNode.removeChild(messageDiv);
+        messageDiv.style.opacity = '1';
+        messageDiv.style.transform = 'translate(-50%, -50%) scale(1)';
+    }, 10);
+
+    // Обратный отсчет
+    const countdownElement = messageDiv.querySelector('#countdown');
+    let timeLeft = duration / 1000;
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+        if (countdownElement) {
+            countdownElement.textContent = timeLeft;
         }
-    }, 5000);
+
+        // Меняем цвет при малом времени
+        if (timeLeft <= 5 && countdownElement) {
+            countdownElement.style.color = 'var(--blood-red)';
+            countdownElement.style.animation = 'pulse 1s infinite';
+        }
+    }, 1000);
+
+    // Удаление через указанное время
+    const timer = setTimeout(() => {
+        if (messageDiv.parentNode) {
+            // Анимация исчезновения
+            messageDiv.style.opacity = '0';
+            messageDiv.style.transform = 'translate(-50%, -50%) scale(0.8)';
+
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.parentNode.removeChild(messageDiv);
+                }
+            }, 300);
+        }
+        clearInterval(countdown);
+    }, duration);
+
+    // Сохраняем таймер в элементе для возможности отмены
+    messageDiv._timer = timer;
 }
+
+// Добавляем возможность закрытия по клику на фон
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('cryptic-message')) {
+        e.target.remove();
+    }
+});
 
 // Викторина в стиле Уэнздей
 function startWednesdayQuiz() {
