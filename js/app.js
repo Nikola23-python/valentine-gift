@@ -96,6 +96,62 @@ window.getRandomMessage = function() {
     playStarSound();
 };
 
+// Счётчик дней
+function calculateDaysTogether() {
+    const meetDate = new Date(SITE_DATA.meet_date);
+    const now = new Date();
+
+    // Разница в миллисекундах
+    const diffTime = Math.abs(now - meetDate);
+
+    // Разница в днях
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays;
+}
+
+// Обновление счётчиков
+function updateCounters() {
+    const days = calculateDaysTogether();
+    const daysElement = document.getElementById('days-counter');
+    if (daysElement) {
+        daysElement.textContent = days;
+    }
+}
+
+// Функция для загрузки воспоминаний (если её нет)
+function getRecentMemories() {
+    return SITE_DATA.memories.slice(0, 3); // Первые 3 воспоминания
+}
+
+// Функция для загрузки всех воспоминаний
+function loadAllMemories() {
+    const container = document.getElementById('all-memories');
+    const emptyState = document.getElementById('no-memories');
+
+    if (!container) return;
+
+    const memories = SITE_DATA.memories;
+
+    if (memories.length === 0) {
+        if (emptyState) emptyState.style.display = 'block';
+        return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    container.innerHTML = memories.map(memory => `
+        <div class="memory-item">
+            <div class="memory-date">
+                <i class="fas fa-calendar-day"></i>
+                ${new Date(memory.date).toLocaleDateString('ru-RU')}
+            </div>
+            <h3 style="color: var(--white); margin-bottom: 10px;">${memory.title}</h3>
+            <p style="color: var(--silver);">${memory.description}</p>
+        </div>
+    `).join('');
+}
+
 // Обновляем глобальные функции
 window.createClickStar = createClickStar;
 window.createStarExplosionEffect = createStarExplosionEffect;
