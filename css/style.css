@@ -25,10 +25,8 @@
 
 body {
     font-family: 'Courier New', monospace;
-    background: linear-gradient(135deg,
-        var(--black) 0%,
-        var(--dark-gray) 50%,
-        var(--gray) 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%) !important;
+    background-attachment: fixed !important;
     color: var(--white);
     min-height: 100vh;
     overflow-x: hidden;
