@@ -68,7 +68,7 @@ function playStarSound() {
         gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
 
-        oscillator.start(aContext.currentTime);
+        oscillator.start(audioContext.currentTime);
         oscillator.stop(audioContext.currentTime + 0.15);
     } catch (e) {
         // Если Web Audio API не поддерживается, ничего не делаем
