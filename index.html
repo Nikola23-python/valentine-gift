@@ -406,56 +406,39 @@
             document.getElementById('days-counter').textContent = days;
         }
     </script>
+<!-- В конце body перед закрывающим тегом </body> -->
 <script src="js/data.js"></script>
 <script src="js/wednesday.js"></script>
 <script src="js/app.js"></script>
 
 <script>
-    // Инициализация
+    // Инициализация - гарантируем загрузку данных
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🖤 Дневник Уэнздей инициализируется...');
+        console.log('Данные загружены:', SITE_DATA ? 'Да' : 'Нет');
+        console.log('Количество сообщений:', SITE_DATA?.messages?.length || 0);
+        console.log('Количество воспоминаний:', SITE_DATA?.memories?.length || 0);
 
         // Запускаем эффекты
-        initWednesdayEffects();
-
-        // Обновляем счётчики сразу
-        updateCounters();
-
-        // Загружаем воспоминания
-        loadRecentMemories();
-
-        // Обновляем счётчик дней каждую минуту
-        setInterval(updateCounters, 60000);
-    });
-
-    // Функция для загрузки недавних воспоминаний
-    function loadRecentMemories() {
-        const container = document.getElementById('recent-memories');
-        if (!container) return;
-
-        const memories = getRecentMemories();
-
-        if (memories.length === 0) {
-            container.innerHTML = `
-                <div class="card" style="text-align: center; padding: 40px;">
-                    <i class="fas fa-ghost" style="font-size: 3rem; color: var(--silver); margin-bottom: 20px;"></i>
-                    <p style="color: var(--silver);">Пока нет воспоминаний. Как подозрительно пусто.</p>
-                </div>
-            `;
-            return;
+        if (typeof initWednesdayEffects === 'function') {
+            initWednesdayEffects();
         }
 
-        container.innerHTML = memories.map(memory => `
-            <div class="memory-item">
-                <div class="memory-date">
-                    <i class="fas fa-calendar-day"></i>
-                    ${new Date(memory.date).toLocaleDateString('ru-RU')}
-                </div>
-                <h4 style="color: var(--white); margin-bottom: 10px;">${memory.title}</h4>
-                <p style="color: var(--silver);">${memory.description}</p>
-            </div>
-        `).join('');
-    }
+        // Обновляем все счетчики сразу
+        setTimeout(() => {
+            if (typeof updateCounters === 'function') {
+                updateCounters();
+            }
+
+            if (typeof updateStatisticsCounters === 'function') {
+                updateStatisticsCounters();
+            }
+
+            if (typeof loadRecentMemories === 'function') {
+                loadRecentMemories();
+            }
+        }, 100);
+    });
 </script>
 </body>
 </html>

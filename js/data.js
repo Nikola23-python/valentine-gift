@@ -1,5 +1,5 @@
 // Обновленные сообщения
-const SITE_DATA = {
+window.SITE_DATA = {
     her_name: "Аля",
     your_name: "Коля",
     meet_date: "2024-06-18",

@@ -153,20 +153,37 @@ function loadAllMemories() {
     `).join('');
 }
 
+
 // Обновление счетчиков статистики
 function updateStatisticsCounters() {
+    console.log('Обновление счетчиков статистики...');
+    console.log('SITE_DATA:', SITE_DATA);
+
+    // Проверяем, загружены ли данные
+    if (!SITE_DATA) {
+        console.error('SITE_DATA не загружен!');
+        return;
+    }
+
     // Счетчик воспоминаний
     const memoriesElement = document.getElementById('memories-counter');
-    if (memoriesElement && SITE_DATA.memories) {
-        memoriesElement.textContent = SITE_DATA.memories.length;
+    if (memoriesElement) {
+        const memoriesCount = SITE_DATA.memories ? SITE_DATA.memories.length : 0;
+        console.log('Количество воспоминаний:', memoriesCount);
+        memoriesElement.textContent = memoriesCount;
     }
 
     // Счетчик комплиментов (сообщений)
     const complimentsElement = document.getElementById('compliments-counter');
-    if (complimentsElement && SITE_DATA.messages) {
-        complimentsElement.textContent = SITE_DATA.messages.length;
+    if (complimentsElement) {
+        const messagesCount = SITE_DATA.messages ? SITE_DATA.messages.length : 0;
+        console.log('Количество сообщений:', messagesCount);
+        complimentsElement.textContent = messagesCount;
     }
 }
+
+// Добавим эту функцию в глобальную область видимости
+window.updateStatisticsCounters = updateStatisticsCounters;
 // Обновляем глобальные функции
 window.createClickStar = createClickStar;
 window.createStarExplosionEffect = createStarExplosionEffect;
