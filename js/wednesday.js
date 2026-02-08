@@ -110,7 +110,7 @@ function playWednesdaySound(type) {
 }
 
 // Тайные послания как у Уэнздей
-function showCrypticMessage(message) {
+function showCrypticMessage(message, duration = 10000) {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'cryptic-message';
     messageDiv.textContent = message;
