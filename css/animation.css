@@ -1,82 +1,126 @@
-/* Анимации */
-@keyframes floatUp {
+/* Морские анимации */
+
+/* Плавающие пузырьки */
+@keyframes bubbleFloat {
     0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100px) rotate(180deg);
-        opacity: 0;
-    }
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateY(100vh) scale(0.5);
         opacity: 0;
     }
     10% {
         opacity: 1;
     }
-    90% {
-        opacity: 1;
-    }
     100% {
-        transform: translateY(-100px) rotate(360deg);
+        transform: translateY(-100px) scale(1);
         opacity: 0;
     }
 }
 
-/* Плавающие сердечки */
-.floating-hearts {
+.bubble {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
     pointer-events: none;
     z-index: -1;
+    animation: bubbleFloat linear forwards;
 }
 
-.heart {
-    position: absolute;
-    font-size: 24px;
-    opacity: 0;
-    animation: float 8s linear infinite;
-    user-select: none;
+/* Волны */
+@keyframes wave {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+    25% {
+        transform: translateX(-5px) translateY(2px);
+    }
+    50% {
+        transform: translateX(0) translateY(4px);
+    }
+    75% {
+        transform: translateX(5px) translateY(2px);
+    }
+}
+
+.wave {
+    animation: wave 3s ease-in-out infinite;
+}
+
+/* Плавающие водоросли */
+@keyframes seaweedSway {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+.seaweed {
+    animation: seaweedSway 4s ease-in-out infinite;
+}
+
+/* Сияние жемчужины */
+@keyframes pearlGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(255, 255, 255, 0.5),
+            inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 40px rgba(255, 255, 255, 0.8),
+            inset 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+}
+
+.pearl {
+    animation: pearlGlow 3s infinite alternate;
+}
+
+/* Плавающая медуза */
+@keyframes jellyfishFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+.jellyfish {
+    animation: jellyfishFloat 8s ease-in-out infinite;
+}
+
+/* Всплеск воды */
+@keyframes splash {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.splash {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91, 192, 248, 0.5) 0%, transparent 70%);
     pointer-events: none;
-}
-
-/* Анимации для элементов */
-.fade-in {
-    animation: fadeIn 0.8s ease forwards;
-}
-
-.pulse {
-    animation: pulse 2s infinite;
-}
-
-.slide-in {
-    animation: fadeIn 0.5s ease;
-}
-
-/* Анимация для кнопок */
-.button, .nav-link, .memory-card, .card {
-    animation: fadeIn 0.5s ease;
+    z-index: 9999;
+    animation: splash 1s ease-out forwards;
 }

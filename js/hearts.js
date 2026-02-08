@@ -1,83 +1,156 @@
-// Создает плавающие сердечки в фоне
-function createHearts() {
+// Создает плавающие звезды в фоне
+function createStars() {
     const container = document.getElementById('hearts-container');
     if (!container) return;
 
-    const hearts = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '💝'];
+    // Звезды и космические символы
+    const stars = ['💙', '💠', '🔷', '🔹', '🌌', '✨', '🌟', '⭐', '💎', '🌀','⭐', '🌟', '✨', '💫', '🌠', '🌌', '🌙'];
 
-    // Создаем 20 сердечек
-    for (let i = 0; i < 20; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+    // Создаем 25 звезд
+    for (let i = 0; i < 25; i++) {
+        const star = document.createElement('div');
+        star.className = 'heart';
+        star.innerHTML = stars[Math.floor(Math.random() * stars.length)];
 
         // Случайная позиция
-        heart.style.left = Math.random() * 100 + 'vw';
+        star.style.left = Math.random() * 100 + 'vw';
 
         // Случайная задержка анимации
-        heart.style.animationDelay = Math.random() * 8 + 's';
+        star.style.animationDelay = Math.random() * 10 + 's';
 
         // Случайный размер
-        heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+        const size = Math.random() * 25 + 15;
+        star.style.fontSize = size + 'px';
 
         // Случайная скорость
-        const duration = Math.random() * 5000 + 10000;
-        heart.style.animationDuration = duration + 'ms';
+        const duration = Math.random() * 10000 + 15000;
+        star.style.animationDuration = duration + 'ms';
 
-        container.appendChild(heart);
+        // Мерцание
+        star.style.animation = `float ${duration}ms linear infinite, twinkle ${Math.random() * 3 + 2}s infinite alternate`;
 
-        // Удаляем сердечко после завершения анимации
+        container.appendChild(star);
+
+        // Удаляем звезду после завершения анимации
         setTimeout(() => {
-            if (heart.parentNode === container) {
-                container.removeChild(heart);
+            if (star.parentNode === container) {
+                container.removeChild(star);
             }
         }, duration);
     }
 
-    // Периодически добавляем новые сердечки
-    setTimeout(createHearts, 3000);
+    // Периодически добавляем падающие звезды
+    setTimeout(createShootingStar, 3000);
+    setTimeout(createStars, 5000);
 }
 
-// Создает сердечко в месте клика
-function createClickHeart(x, y) {
+// Создает падающую звезду
+function createShootingStar() {
     const container = document.getElementById('hearts-container');
     if (!container) return;
 
-    const hearts = ['❤️', '💖', '💗', '💓'];
-    const heart = document.createElement('div');
-    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+    const shootingStar = document.createElement('div');
+    shootingStar.className = 'shooting-star';
+    shootingStar.style.left = Math.random() * 100 + 'vw';
+    shootingStar.style.top = '-100px';
 
-    // Позиционируем
-    heart.style.position = 'fixed';
-    heart.style.left = (x - 20) + 'px';
-    heart.style.top = (y - 20) + 'px';
-    heart.style.fontSize = '40px';
-    heart.style.zIndex = '9999';
-    heart.style.pointerEvents = 'none';
-    heart.style.userSelect = 'none';
-    heart.style.animation = 'floatUp 2s ease forwards';
+    container.appendChild(shootingStar);
 
-    document.body.appendChild(heart);
-
-    // Удаляем через 2 секунды
     setTimeout(() => {
-        if (heart.parentNode) {
-            heart.parentNode.removeChild(heart);
+        if (shootingStar.parentNode === container) {
+            container.removeChild(shootingStar);
         }
     }, 2000);
+
+    // Случайное время до следующей падающей звезды
+    setTimeout(createShootingStar, Math.random() * 5000 + 3000);
 }
 
-// Создает взрыв сердечек
-function createHeartExplosion(count = 20, x = null, y = null) {
+// Создает звезду в месте клика
+function createClickStar(x, y) {
+    const container = document.getElementById('hearts-container');
+    if (!container) return;
+
+    const stars = ['⭐', '🌟', '✨', '💫'];
+    const star = document.createElement('div');
+    star.innerHTML = stars[Math.floor(Math.random() * stars.length)];
+
+    // Позиционируем
+    star.style.position = 'fixed';
+    star.style.left = (x - 20) + 'px';
+    star.style.top = (y - 20) + 'px';
+    star.style.fontSize = '40px';
+    star.style.zIndex = '9999';
+    star.style.pointerEvents = 'none';
+    star.style.userSelect = 'none';
+    star.style.animation = 'floatUpNight 2.5s ease-out forwards';
+    star.style.color = '#4cc9f0';
+    star.style.textShadow = '0 0 20px rgba(76, 201, 240, 0.8)';
+
+    document.body.appendChild(star);
+
+    // Эффект взрыва
+    createStarExplosion(x, y);
+
+    // Удаляем через 2.5 секунды
+    setTimeout(() => {
+        if (star.parentNode) {
+            star.parentNode.removeChild(star);
+        }
+    }, 2500);
+}
+
+// Создает эффект взрыва звезды
+function createStarExplosion(x, y) {
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.className = 'star-explosion';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 800);
+        }, i * 50);
+    }
+}
+
+// Создает взрыв звезд
+function createStarExplosionEffect(count = 15, x = null, y = null) {
     const centerX = x || window.innerWidth / 2;
     const centerY = y || window.innerHeight / 2;
 
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
-            createClickHeart(
-                centerX + (Math.random() - 0.5) * 100,
-                centerY + (Math.random() - 0.5) * 100
+            createClickStar(
+                centerX + (Math.random() - 0.5) * 150,
+                centerY + (Math.random() - 0.5) * 150
             );
-        }, i * 50);
+        }, i * 30);
+    }
+}
+
+// Создает метеоритный дождь
+function createMeteorShower(count = 5) {
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const meteor = document.createElement('div');
+            meteor.className = 'meteor';
+            meteor.style.left = Math.random() * 100 + 'vw';
+            meteor.style.top = '-100px';
+
+            document.body.appendChild(meteor);
+
+            setTimeout(() => {
+                if (meteor.parentNode) {
+                    meteor.parentNode.removeChild(meteor);
+                }
+            }, 1500);
+        }, i * 800);
     }
 }
