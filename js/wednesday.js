@@ -157,30 +157,91 @@ function startWednesdayQuiz() {
             question: "Какой её фирменный взгляд?",
             options: ["Смертельный", "Безразличный", "Загадочный", "Все варианты верны"],
             answer: 3
+        },
+        {
+            question: "Что Уэнздей считает идеальным подарком?",
+            options: ["Букет роз", "Новый альбом группы", "Череп с ещё не высохшей плотью", "Партию чёрного одеяния"],
+            answer: 2
+        },
+        {
+            question: "Какое её любимое занятие в дождливую погоду?",
+            options: ["Смотреть жизнеутверждающие комедии", "Гулять без зонта", "Вскрывать чучела в своей комнате", "Сочинять поэмы о тщетности бытия"],
+            answer: 3
         }
     ];
 
     let score = 0;
+    let currentQuestion = 0;
 
-    questions.forEach((q, index) => {
-        setTimeout(() => {
-            const answer = prompt(`${q.question}\n\n${q.options.map((opt, i) => `${i + 1}. ${opt}`).join('\n')}`);
-            if (parseInt(answer) - 1 === q.answer) {
-                score++;
-                showCrypticMessage("Правильно. Не ожидала от тебя.");
-            } else {
-                showCrypticMessage("Ошибка. Я разочарована.");
-            }
-        }, index * 3000);
-    });
+    function showCrypticMessage(message) {
+        alert(`🕸️  ${message} 🦇`);
+    }
 
-    setTimeout(() => {
-        if (score === questions.length) {
-            showCrypticMessage("Идеальный результат. Ты меня удивляешь.");
-        } else {
-            showCrypticMessage(`Ты набрал ${score} из ${questions.length}. Приемлемо.`);
+    function askQuestion(index) {
+        if (index >= questions.length) {
+            // Все вопросы заданы, показываем результат
+            setTimeout(() => {
+                if (score === questions.length) {
+                    showCrypticMessage("Идеальный результат. Ты меня удивляешь... почти.");
+                } else if (score >= questions.length * 0.7) {
+                    showCrypticMessage(`Ты набрал ${score} из ${questions.length}. Приемлемо для смертного.`);
+                } else if (score >= questions.length * 0.4) {
+                    showCrypticMessage(`Всего ${score} из ${questions.length}. Посредственность — это тоже диагноз.`);
+                } else {
+                    showCrypticMessage(`${score} из ${questions.length}. Жалкое зрелище.`);
+                }
+            }, 1000);
+            return;
         }
-    }, questions.length * 3000 + 1000);
+
+        const q = questions[index];
+
+        setTimeout(() => {
+            const answer = prompt(
+                `🦇 Вопрос ${index + 1}/${questions.length} 🦇\n\n${q.question}\n\n` +
+                q.options.map((opt, i) => `${i + 1}. ${opt}`).join('\n') +
+                `\n\nВведи номер ответа (1-${q.options.length}):`
+            );
+
+            // Обработка отмены или неверного ввода
+            if (answer === null) {
+                showCrypticMessage("Сбежал? Как предсказуемо...");
+                return;
+            }
+
+            const userAnswer = parseInt(answer);
+
+            if (isNaN(userAnswer) || userAnswer < 1 || userAnswer > q.options.length) {
+                showCrypticMessage("Неспособность выбрать число... печально.");
+                askQuestion(index + 1);
+            } else if (userAnswer - 1 === q.answer) {
+                score++;
+                const correctMessages = [
+                    "Правильно. Не ожидала от тебя.",
+                    "Верно. Почти впечатляет.",
+                    "Точно. Ты внимательно наблюдаешь.",
+                    "Правильный ответ. Случайность?"
+                ];
+                showCrypticMessage(correctMessages[Math.floor(Math.random() * correctMessages.length)]);
+                askQuestion(index + 1);
+            } else {
+                const wrongMessages = [
+                    "Ошибка. Я разочарована.",
+                    "Неправильно. Как банально.",
+                    "Неверно. Ты не понимаешь тьмы.",
+                    "Ошибочка. Попробуй жить с этим."
+                ];
+                showCrypticMessage(wrongMessages[Math.floor(Math.random() * wrongMessages.length)]);
+                askQuestion(index + 1);
+            }
+        }, index === 0 ? 0 : 2000); // Первый вопрос без задержки, остальные с задержкой 2 секунды
+    }
+
+    // Начало викторины
+    showCrypticMessage("Добро пожаловать в мою викторину. Надеюсь, твои нервы крепки...");
+    setTimeout(() => {
+        askQuestion(0);
+    }, 1500);
 }
 
 // Инициализация эффектов
