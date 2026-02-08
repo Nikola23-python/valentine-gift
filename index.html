@@ -3,233 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для моей русалочки 🌊 | Наш остров любви</title>
+    <title>Для моей Уэнздей 🖤 | Наша готическая история</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="icon" type="image/x-icon" href="images/anchor.ico">
     <style>
-        /* Дополнительные стили для этой страницы */
-        .ocean-floor {
-            position: fixed;
-            bottom: 0;
+        /* Дополнительные анимации */
+        @keyframes webExpand {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 3s steps(40, end);
+        }
+
+        /* Свиток дневника */
+        .diary-scroll {
+            background: linear-gradient(135deg,
+                rgba(218, 165, 32, 0.1) 0%,
+                rgba(139, 0, 0, 0.05) 100%);
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            position: relative;
+            font-family: 'Courier New', monospace;
+        }
+
+        .diary-scroll::before {
+            content: '';
+            position: absolute;
+            top: 0;
             left: 0;
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(0deg,
-                rgba(26, 95, 122, 0.9) 0%,
-                rgba(26, 95, 122, 0.7) 50%,
-                transparent 100%);
-            z-index: -2;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><rect width="100" height="100" fill="none" stroke="%238b0000" stroke-width="1"/><line x1="0" y1="20" x2="100" y2="20" stroke="%238b0000" stroke-width="0.5"/><line x1="0" y1="40" x2="100" y2="40" stroke="%238b0000" stroke-width="0.5"/><line x1="0" y1="60" x2="100" y2="60" stroke="%238b0000" stroke-width="0.5"/><line x1="0" y1="80" x2="100" y2="80" stroke="%238b0000" stroke-width="0.5"/></svg>');
         }
 
-        .treasure-chest {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 60px;
-            background: linear-gradient(45deg, #8B4513, #D2691E);
-            border-radius: 10px;
-            box-shadow:
-                0 10px 20px rgba(0, 0, 0, 0.3),
-                inset 0 -5px 10px rgba(0, 0, 0, 0.2);
-            z-index: 998;
-            cursor: pointer;
-            animation: chestBounce 3s infinite;
+        /* Замок для секретов */
+        .secret-lock {
+            position: relative;
+            padding: 30px;
+            margin: 40px 0;
+            background: linear-gradient(135deg,
+                rgba(75, 0, 130, 0.2) 0%,
+                rgba(139, 0, 0, 0.1) 100%);
+            border: 2px solid var(--purple);
         }
 
-        .treasure-chest::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            width: 60px;
-            height: 15px;
-            background: linear-gradient(45deg, #A0522D, #8B4513);
-            border-radius: 5px 5px 0 0;
-        }
-
-        .treasure-chest::after {
-            content: '💎';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-        }
-
-        @keyframes chestBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-
-        .lighthouse {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 40px;
-            height: 100px;
-            background: linear-gradient(180deg, #FF6B6B, #FFAAA5);
-            border-radius: 20px 20px 0 0;
-            z-index: 999;
-        }
-
-        .lighthouse::before {
-            content: '';
+        .secret-lock::before {
+            content: '🔒';
             position: absolute;
             top: -20px;
-            left: -10px;
-            width: 60px;
-            height: 30px;
-            background: linear-gradient(45deg, #FFD3B6, #FFAAA5);
-            border-radius: 50%;
-        }
-
-        .lighthouse::after {
-            content: '💡';
-            position: absolute;
-            top: -15px;
-            left: 15px;
-            font-size: 20px;
-            animation: lighthouseLight 4s infinite;
-        }
-
-        @keyframes lighthouseLight {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .wave-decoration {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23005792" fill-opacity="0.3" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,176C960,192,1056,192,1152,176C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            z-index: -1;
-        }
-
-        .marine-counter {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .marine-counter-item {
-            text-align: center;
-            padding: 15px 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            min-width: 120px;
-        }
-
-        .marine-counter-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: var(--sand);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .marine-counter-label {
-            font-size: 0.9em;
-            color: var(--foam);
-            margin-top: 5px;
-        }
-
-        .secret-tide {
-            position: relative;
-            overflow: hidden;
-            margin: 40px 0;
-            padding: 30px;
-            background: linear-gradient(45deg,
-                rgba(91, 192, 248, 0.2),
-                rgba(255, 123, 172, 0.1));
-            border-radius: 20px;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-        }
-
-        .tide-message {
-            font-style: italic;
-            text-align: center;
-            color: var(--foam);
-            font-size: 1.2em;
-        }
-
-        .click-hint {
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            color: var(--foam);
-            animation: pulseHint 2s infinite;
-            z-index: 1000;
-            display: none;
-        }
-
-        @keyframes pulseHint {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .marine-counter {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .marine-counter-item {
-                width: 100%;
-                max-width: 200px;
-            }
-
-            .treasure-chest, .lighthouse {
-                display: none;
-            }
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: var(--black);
+            padding: 0 20px;
         }
     </style>
 </head>
 <body>
-    <!-- Морской фон и элементы -->
-    <div class="ocean-floor"></div>
-    <div class="wave-decoration"></div>
-    <div class="sea-elements" id="sea-container"></div>
-
-    <!-- Интерактивные элементы -->
-    <div class="dolphin" onclick="createClickSeaElement(window.innerWidth/2, window.innerHeight/2)"></div>
-    <div class="seashell"></div>
-    <div class="treasure-chest" onclick="openTreasureChest()"></div>
-    <div class="lighthouse"></div>
-    <div class="click-hint" id="click-hint">Кликай по странице, чтобы создавать морские сокровища! 🐚</div>
+    <!-- Эффекты Уэнздей -->
+    <div id="wednesday-effects"></div>
+    <div class="candle"></div>
 
     <!-- Навигация -->
     <nav class="navbar">
         <a href="index.html" class="logo">
-            <i class="fas fa-anchor"></i> Для моей русалочки
+            Дневник Уэнздей
         </a>
         <div class="nav-links">
             <a href="index.html" class="nav-link active">
-                <i class="fas fa-home"></i> Наш остров
+                <i class="fas fa-skull"></i> Главная
             </a>
             <a href="memories.html" class="nav-link">
-                <i class="fas fa-ship"></i> Воспоминания
+                <i class="fas fa-book-dead"></i> Хроники
             </a>
             <a href="secret.html" class="nav-link">
-                <i class="fas fa-lock"></i> Бутылка с посланием
+                <i class="fas fa-lock"></i> Секретный склеп
             </a>
-            <a href="gallery.html" class="nav-link">
-                <i class="fas fa-images"></i> Морская галерея
+            <a href="quiz.html" class="nav-link">
+                <i class="fas fa-ghost"></i> Викторина
             </a>
         </div>
     </nav>
@@ -238,543 +102,307 @@
     <div class="container">
         <!-- Герой-секция -->
         <div class="hero">
-            <h1 class="hero-title">Привет, моя прекрасная русалочка! 🧜‍♀️💙</h1>
+            <h1 class="hero-title flicker">
+                Приветствую, моя тёмная половинка 🖤
+            </h1>
             <p class="hero-subtitle">
-                Добро пожаловать на наш личный остров любви, затерянный посреди океана жизни.
-                Здесь каждый день с тобой — как новая волна счастья, каждая минута — как драгоценная жемчужина,
-                а каждое воспоминание — как сокровище в морском сундуке.
+                Этот дневник — как моё чёрное сердце: полон тайн, загадок
+                и одной единственной светлой точки — тебя.
+                Здесь только правда, даже если она мрачнее ночи.
             </p>
 
-            <!-- Счетчик дней вместе -->
+            <!-- Счётчик дней -->
             <div class="counter-box">
-                <h2><i class="fas fa-calendar-alt"></i> Наше морское путешествие длится:</h2>
+                <h2><i class="fas fa-calendar-times"></i> Наша история длится:</h2>
                 <div class="counter-number" id="days-counter">0</div>
-                <p>волн счастья и приключений! 🌊</p>
-                <p><small>Мы отправились в плавание 18.06.2024</small></p>
+                <p>дней в этом странном, но прекрасном мире</p>
+                <p><small>С 18.06.2024 — даты, которую я не забуду</small></p>
 
                 <!-- Дополнительная статистика -->
-                <div class="marine-counter">
-                    <div class="marine-counter-item">
-                        <div class="marine-counter-number" id="hours-together">0</div>
-                        <div class="marine-counter-label">Часов в море</div>
+                <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: var(--blood-red);">8</div>
+                        <div style="font-size: 0.9rem; color: var(--silver);">Тёмных воспоминаний</div>
                     </div>
-                    <div class="marine-counter-item">
-                        <div class="marine-counter-number" id="minutes-together">0</div>
-                        <div class="marine-counter-label">Минут под парусом</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: var(--blood-red);">10</div>
+                        <div style="font-size: 0.9rem; color: var(--silver);">Смертельных комплиментов</div>
                     </div>
-                    <div class="marine-counter-item">
-                        <div class="marine-counter-number" id="seconds-together">0</div>
-                        <div class="marine-counter-label">Секунд с капитаном</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: var(--blood-red);">∞</div>
+                        <div style="font-size: 0.9rem; color: var(--silver);">Причин любить тебя</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Цитата дня -->
-        <div class="quote-box wave">
-            <i class="fas fa-quote-left" style="color: var(--coral); margin-right: 10px;"></i>
-            <span id="love-quote">Наша любовь глубже океана и ярче морского солнца.</span>
-            <i class="fas fa-quote-right" style="color: var(--coral); margin-left: 10px;"></i>
-            <div style="text-align: right; margin-top: 15px; font-size: 0.9em; color: var(--ocean-light);">
-                <i class="fas fa-sync-alt"></i> Обновляется каждый день
+        <div class="quote-box">
+            <p id="love-quote" class="typewriter">
+                "Любовь — это как смертельный яд: проникает в кровь,
+                меняет сознание, и от неё нет противоядия."
+            </p>
+            <div style="text-align: right; margin-top: 20px; color: var(--gold);">
+                — Запись из дневника
             </div>
         </div>
 
         <!-- Интерактивные карточки -->
-        <div class="interactive-box">
-            <!-- Карточка 1: Комплименты -->
-            <div class="card pearl">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+            <!-- Карточка 1: Комплимент -->
+            <div class="card">
                 <h3 class="card-title">
-                    <i class="fas fa-comment-dots"></i> Морской комплимент
+                    <i class="fas fa-comment-slash"></i> Нечто приятное
                 </h3>
-                <p id="random-message" style="font-size: 1.2em; margin: 20px 0; min-height: 80px;">
-                    Нажми на якорь, чтобы получить персональный комплимент прямо из морских глубин!
+                <p id="random-message" style="margin: 20px 0; min-height: 100px; color: var(--silver);">
+                    Я редко говорю комплименты, но для тебя сделаю исключение.
+                    Нажми кнопку, если осмелишься.
                 </p>
-                <button class="button" onclick="getRandomMessage()">
-                    <i class="fas fa-anchor"></i> Бросить якорь любви
+                <button class="button" onclick="getWednesdayCompliment()">
+                    <i class="fas fa-hand-middle-finger"></i> Получить комплимент
                 </button>
-                <div style="margin-top: 20px; font-size: 0.9em; color: var(--ocean-light);">
-                    <i class="fas fa-info-circle"></i> Каждый комплимент уникален, как морская ракушка
-                </div>
             </div>
 
-            <!-- Карточка 2: История -->
-            <div class="card jellyfish">
+            <!-- Карточка 2: Воспоминания -->
+            <div class="card">
                 <h3 class="card-title">
-                    <i class="fas fa-book-open"></i> Наша история
+                    <i class="fas fa-history"></i> Мрачные хроники
                 </h3>
-                <p style="margin: 15px 0;">
-                    <i class="fas fa-calendar-day" style="color: var(--coral);"></i>
-                    <strong>Дата отплытия:</strong> 18 июня 2024
-                </p>
-                <p style="margin: 15px 0;">
-                    <i class="fas fa-map-marker-alt" style="color: var(--coral);"></i>
-                    <strong>Порт отправления:</strong> Кафе на берегу
-                </p>
-                <p style="margin: 15px 0;">
-                    <i class="fas fa-route" style="color: var(--coral);"></i>
-                    <strong>Пройдено:</strong> <span id="days-together">0</span> дней
-                </p>
+                <div class="diary-scroll">
+                    <p><strong>18.06.2024</strong><br>
+                    Встретила странного человека. Не сразу его прогнала. Интересно.</p>
+                    <p><strong>20.07.2024</strong><br>
+                    Первый поцелуй. Обычно я ненавижу физический контакт, но это... приемлемо.</p>
+                </div>
                 <a href="memories.html" class="button">
-                    <i class="fas fa-ship"></i> В плавание по воспоминаниям
+                    <i class="fas fa-coffin"></i> Открыть все хроники
                 </a>
             </div>
 
             <!-- Карточка 3: Секрет -->
-            <div class="card seaweed">
+            <div class="card">
                 <h3 class="card-title">
-                    <i class="fas fa-lock"></i> Секретная бутылка
+                    <i class="fas fa-mask"></i> Секретный склеп
                 </h3>
-                <p style="margin: 15px 0;">
-                    Для тебя на дне океана спрятана бутылка с тайным посланием.
-                    Только ты знаешь, где искать сокровища.
+                <p style="margin: 20px 0; color: var(--silver);">
+                    В подвале этого сайта спрятано нечто.
+                    Только ты знаешь код от замка.
                 </p>
-                <p style="margin: 15px 0; font-style: italic; color: var(--sand);">
-                    "Любовь, как океан, скрывает свои глубины"
-                </p>
-                <a href="secret.html" class="button" style="background: linear-gradient(45deg, var(--coral), var(--sunset));">
-                    <i class="fas fa-key"></i> Найти бутылку с посланием
+                <div class="secret-lock">
+                    <p style="text-align: center; font-style: italic; color: var(--purple);">
+                        "Тот, кто знает дату нашей встречи,
+                        найдёт то, что скрыто во тьме"
+                    </p>
+                </div>
+                <a href="secret.html" class="button" style="background: linear-gradient(135deg, var(--purple), var(--blood-red));">
+                    <i class="fas fa-key"></i> Попытаться открыть
                 </a>
             </div>
         </div>
 
-        <!-- Секция "Прилив любви" -->
-        <div class="secret-tide">
-            <h3 style="text-align: center; color: var(--sand); margin-bottom: 20px;">
-                <i class="fas fa-water"></i> Сегодняшний прилив любви
-            </h3>
-            <div class="tide-message" id="tide-message">
-                Волны шепчут твое имя, а ветер приносит аромат твоих духов...
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="button" onclick="updateTideMessage()" style="padding: 10px 20px; font-size: 0.9em;">
-                    <i class="fas fa-redo"></i> Обновить прилив
-                </button>
-            </div>
-        </div>
-
         <!-- Недавние воспоминания -->
-        <h2 style="text-align: center; margin: 60px 0 30px; color: var(--sand);">
-            <i class="fas fa-images"></i> Недавние воспоминания с нашего острова
-        </h2>
-
-        <div class="memories-grid" id="recent-memories">
-            <!-- Воспоминания будут загружены через JS -->
-            <div class="memory-placeholder" style="text-align: center; padding: 40px; color: var(--ocean-light);">
-                <i class="fas fa-spinner fa-spin fa-3x" style="margin-bottom: 20px;"></i>
-                <p>Загружаем самые свежие волны воспоминаний...</p>
-            </div>
+        <div class="gothic-border">
+            <h2 style="text-align: center; margin: 40px 0; color: var(--white);">
+                <i class="fas fa-camera-retro"></i> Недавние снимки с того света
+            </h2>
         </div>
 
-        <!-- Мини-игра -->
-        <div class="card" style="margin: 40px 0; text-align: center;">
+        <div id="recent-memories" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <!-- Воспоминания загрузятся через JS -->
+        </div>
+
+        <!-- Викторина -->
+        <div class="card" style="margin: 60px 0; text-align: center;">
             <h3 class="card-title">
-                <i class="fas fa-gamepad"></i> Морская мини-игра
+                <i class="fas fa-brain"></i> Испытание на прочность
             </h3>
-            <p style="margin: 20px 0;">
-                Собери 10 морских звезд, чтобы получить особый подарок!
+            <p style="margin: 20px 0; color: var(--silver);">
+                Докажи, что достоин называться моим спутником.
+                Пройди викторину в стиле Уэнздей.
             </p>
-            <div style="margin: 20px 0;">
-                <span id="star-count">0</span> / 10 ⭐ собрано
-                <div style="width: 100%; height: 10px; background: rgba(255, 255, 255, 0.2); border-radius: 5px; margin: 10px 0;">
-                    <div id="star-progress" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--starfish), var(--sunset)); border-radius: 5px;"></div>
-                </div>
-            </div>
-            <button class="button" onclick="collectStar()">
-                <i class="fas fa-fish"></i> Поймать морскую звезду
+            <button class="button" onclick="startWednesdayQuiz()" style="background: linear-gradient(135deg, var(--green), var(--dark-gray));">
+                <i class="fas fa-question"></i> Принять вызов
             </button>
-            <div style="margin-top: 15px; font-size: 0.9em; color: var(--ocean-light);">
-                <i class="fas fa-lightbulb"></i> Кликай по дельфину в правом нижнем углу для быстрого сбора
-            </div>
-        </div>
-
-        <!-- Факты о нас -->
-        <div class="counters-container">
-            <div class="counter-card">
-                <div class="counter-number-small" id="memory-count">8</div>
-                <div class="counter-label">Морских историй</div>
-            </div>
-            <div class="counter-card">
-                <div class="counter-number-small" id="message-count">10</div>
-                <div class="counter-label">Коралловых комплиментов</div>
-            </div>
-            <div class="counter-card">
-                <div class="counter-number-small" id="promise-count">5</div>
-                <div class="counter-label">Капитанских обещаний</div>
-            </div>
-        </div>
-
-        <!-- Погода на нашем острове -->
-        <div class="card" style="margin: 40px 0; text-align: center;">
-            <h3 class="card-title">
-                <i class="fas fa-sun"></i> Погода на нашем острове сегодня
-            </h3>
-            <div style="font-size: 5em; margin: 20px 0;">🌤️</div>
-            <p style="font-size: 1.2em; color: var(--sand);">
-                +25°C | Легкий бриз | Идеально для прогулки по берегу
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--light-gray);">
+                Предупреждение: неправильные ответы могут оскорбить
             </p>
-            <p style="margin-top: 15px; color: var(--ocean-light);">
-                <i class="fas fa-heartbeat"></i> Уровень романтики: Максимальный
+        </div>
+
+        <!-- Таймер до полуночи -->
+        <div class="card" style="text-align: center; margin: 40px 0;">
+            <h3 class="card-title">
+                <i class="fas fa-clock"></i> До следующей полуночи
+            </h3>
+            <div style="font-size: 3rem; color: var(--blood-red); margin: 20px 0;" id="midnight-countdown">
+                00:00:00
+            </div>
+            <p style="color: var(--silver);">
+                Полночь — наше время. Когда мир спит, а тени оживают.
             </p>
         </div>
     </div>
 
     <!-- Футер -->
-    <footer>
+    <footer style="background: var(--black); padding: 50px 20px; text-align: center; border-top: 3px solid var(--blood-red); margin-top: 80px;">
         <div style="max-width: 800px; margin: 0 auto;">
-            <p style="font-size: 1.5em; margin-bottom: 20px;">
-                <i class="fas fa-heart" style="color: var(--coral);"></i>
-                Создано с любовью специально для моей русалочки
-                <i class="fas fa-heart" style="color: var(--coral);"></i>
+            <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--white);">
+                <i class="fas fa-heart" style="color: var(--blood-red);"></i>
+                Создано в кромешной тьме специально для тебя
+                <i class="fas fa-heart" style="color: var(--blood-red);"></i>
             </p>
-            <p class="love-counter">💙 Каждая волна напоминает мне о тебе 💙</p>
 
-            <div style="margin: 30px 0; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px;">
-                <p style="font-size: 0.9em; color: var(--foam);">
-                    <i class="fas fa-compass"></i>
-                    <strong>Координаты нашего острова:</strong> 55°45'07"N 37°36'56"E
-                </p>
-                <p style="font-size: 0.9em; color: var(--foam); margin-top: 10px;">
-                    <i class="fas fa-clock"></i>
-                    <strong>Местное время:</strong> <span id="current-time">--:--</span>
-                </p>
+            <p style="color: var(--silver); margin: 20px 0; font-family: 'Courier New', monospace;">
+                "Даже в самой тёмной ночи есть звёзды.
+                Ты — моя единственная, слишком яркая, звезда."
+            </p>
+
+            <div style="margin: 30px 0;">
+                <button class="button" onclick="showWednesdayFact()" style="padding: 10px 20px; font-size: 0.9rem;">
+                    <i class="fas fa-spider"></i> Факт о пауках
+                </button>
+                <button class="button" onclick="playWednesdaySound('mystery')" style="padding: 10px 20px; font-size: 0.9rem; background: var(--purple);">
+                    <i class="fas fa-hat-wizard"></i> Магический звук
+                </button>
             </div>
 
-            <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
-                <a href="javascript:void(0)" onclick="showSurprise()" style="color: var(--sand); text-decoration: none;">
-                    <i class="fas fa-gift"></i> Сюрприз
-                </a>
-                <a href="javascript:void(0)" onclick="playOceanSound()" style="color: var(--sand); text-decoration: none;">
-                    <i class="fas fa-volume-up"></i> Звуки моря
-                </a>
-                <a href="javascript:void(0)" onclick="changeTheme()" style="color: var(--sand); text-decoration: none;">
-                    <i class="fas fa-moon"></i> Ночной режим
-                </a>
-            </div>
-
-            <p style="margin-top: 30px; font-size: 0.8em; color: var(--ocean-light);">
-                © 2024 Наш остров любви | Версия 2.0 "Морская сага"
+            <p style="font-size: 0.8rem; color: var(--light-gray); margin-top: 30px;">
+                © 2024 Дневник Уэнздей | Все права защищены тьмой
             </p>
         </div>
     </footer>
 
     <!-- Скрипты -->
     <script src="js/data.js"></script>
-    <script src="js/sea.js"></script>
+    <script src="js/wednesday.js"></script>
     <script src="js/app.js"></script>
 
     <script>
-        // Инициализация страницы
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚢 Корабль любви загружается...');
+            console.log('🕸️ Дневник Уэнздей инициализируется...');
 
-            // Обновляем все счетчики
+            // Запускаем эффекты
+            initWednesdayEffects();
+
+            // Обновляем счётчики
             updateCounters();
-            updateTime();
+            updateMidnightCountdown();
 
             // Загружаем воспоминания
-            setTimeout(() => loadRecentMemories(), 500);
+            loadRecentMemories();
 
-            // Создаем морские элементы
-            setTimeout(() => {
-                createSeaElements();
-                createCoralReef();
-            }, 1000);
+            // Обновляем время до полуночи каждую секунду
+            setInterval(updateMidnightCountdown, 1000);
 
-            // Показываем подсказку через 5 секунд
-            setTimeout(() => {
-                document.getElementById('click-hint').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('click-hint').style.display = 'none';
-                }, 5000);
-            }, 5000);
-
-            // Обновляем время каждую минуту
-            setInterval(updateTime, 60000);
-
-            // Обновляем счетчики каждую секунду
+            // Обновляем счётчик дней каждую секунду
             setInterval(updateCounters, 1000);
 
-            // Случайные приливы сообщений
-            updateTideMessage();
-            setInterval(updateTideMessage, 300000); // Каждые 5 минут
-
-            // Инициализация мини-игры
-            initStarGame();
-
-            // Делаем луну интерактивной
-            makeMoonInteractive();
+            // Случайные факты каждые 2 минуты
+            setInterval(showRandomWednesdayFact, 120000);
         });
 
-        // Функции для этой страницы
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ru-RU', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            document.getElementById('current-time').textContent = timeString;
-        }
-
-        function updateTideMessage() {
-            const messages = [
-                "Сегодняшний прилив принес особенный жемчуг — мысль о тебе",
-                "Морской бриз шепчет: 'Я люблю тебя сильнее, чем океан глубок'",
-                "Волны танцуют под ритм нашего сердца",
-                "Солнце садится в море, окрашивая небо в цвет твоих губ",
-                "Сегодня звезды выстроились в слово 'Аля'",
-                "Прилив любви сегодня особенно сильный — он поднимается прямо к сердцу",
-                "Морские коньки держатся за хвосты, как мы держимся за руки",
-                "Сегодня идеальный день для того, чтобы сказать: 'Я тебя люблю'"
+        // Комплименты в стиле Уэнздей
+        function getWednesdayCompliment() {
+            const compliments = [
+                "Твоё присутствие терпимо. Даже приятно.",
+                "Ты нарушаешь моё одиночество... и мне это нравится.",
+                "Из всех людей ты наименее раздражающий.",
+                "Я позволила тебе остаться в моей жизни. Это высшая похвала.",
+                "Ты как паук в углу комнаты: тихий, но всегда рядом.",
+                "Моё чёрное сердце бьётся немного быстрее, когда ты рядом.",
+                "Ты единственный, кого я не хочу похоронить заживо.",
+                "Твоя улыбка... приемлема.",
+                "Я скучаю по тебе. Немного. Не рассказывай никому.",
+                "Ты мой любимый кошмар."
             ];
 
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            document.getElementById('tide-message').textContent = randomMessage;
+            const compliment = compliments[Math.floor(Math.random() * compliments.length)];
+            document.getElementById('random-message').textContent = compliment;
 
-            // Анимация обновления
-            const tideElement = document.querySelector('.secret-tide');
-            tideElement.style.animation = 'none';
+            // Эффект
+            createWebEffect(window.innerWidth/2, window.innerHeight/2);
+            playWednesdaySound('spider');
+
+            // Анимация текста
+            const element = document.getElementById('random-message');
+            element.style.animation = 'none';
             setTimeout(() => {
-                tideElement.style.animation = 'wave 2s ease';
+                element.style.animation = 'flicker 2s';
             }, 10);
         }
 
-        function openTreasureChest() {
-            createClickSeaElement(window.innerWidth/2, window.innerHeight/2);
+        // Таймер до полуночи
+        function updateMidnightCountdown() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
 
-            const surprises = [
-                "💎 Ты нашел драгоценный камень!",
-                "🐚 Вот прекрасная ракушка для твоей коллекции!",
-                "🧜‍♀️ Русалка передает тебе воздушный поцелуй!",
-                "⚓ Якорь любви крепко держит наш корабль!",
-                "🏴‍☠️ Аррр! Это сокровище пиратской страсти!"
+            const diff = midnight - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('midnight-countdown').textContent =
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Случайные факты
+        function showWednesdayFact() {
+            const facts = [
+                "Пауки линяют до 10 раз за жизнь",
+                "Вороны могут запоминать человеческие лица",
+                "Самый тёмный цвет — вантаблэк",
+                "Уэнздей Аддамс родилась в пятницу 13-го",
+                "Готическая архитектура возникла в XII веке",
+                "Летучие мыши — единственные летающие млекопитающие",
+                "Чёрные кошки приносят удачу в некоторых культурах",
+                "Самый старый готический собор — Сен-Дени во Франции"
             ];
 
-            const surprise = surprises[Math.floor(Math.random() * surprises.length)];
+            const fact = facts[Math.floor(Math.random() * facts.length)];
+            showCrypticMessage(`Факт: ${fact}`);
+        }
 
-            // Создаем плавающее сообщение
-            const message = document.createElement('div');
-            message.textContent = surprise;
-            message.style.position = 'fixed';
-            message.style.top = '50%';
-            message.style.left = '50%';
-            message.style.transform = 'translate(-50%, -50%)';
-            message.style.background = 'rgba(0, 0, 0, 0.8)';
-            message.style.color = 'var(--sand)';
-            message.style.padding = '20px 40px';
-            message.style.borderRadius = '15px';
-            message.style.zIndex = '10000';
-            message.style.fontSize = '1.5em';
-            message.style.boxShadow = '0 0 30px rgba(255, 215, 182, 0.5)';
-
-            document.body.appendChild(message);
-
-            // Удаляем через 3 секунды
-            setTimeout(() => {
-                if (message.parentNode) {
-                    message.parentNode.removeChild(message);
-                }
-            }, 3000);
-
-            // Взрыв пузырьков
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    createClickSeaElement(
-                        window.innerWidth/2 + (Math.random() - 0.5) * 200,
-                        window.innerHeight/2 + (Math.random() - 0.5) * 200
-                    );
-                }, i * 50);
+        function showRandomWednesdayFact() {
+            if (Math.random() > 0.7) {
+                showWednesdayFact();
             }
         }
 
-        // Мини-игра: сбор морских звезд
-        let starsCollected = 0;
+        // Загрузка воспоминаний
+        function loadRecentMemories() {
+            const container = document.getElementById('recent-memories');
+            if (!container) return;
 
-        function initStarGame() {
-            starsCollected = parseInt(localStorage.getItem('marine_stars') || '0');
-            updateStarDisplay();
-        }
+            const memories = getRecentMemories();
 
-        function collectStar() {
-            starsCollected++;
-            localStorage.setItem('marine_stars', starsCollected.toString());
-            updateStarDisplay();
-
-            // Анимация сбора
-            createClickSeaElement(
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerHeight
-            );
-
-            // Если собрали 10 звезд
-            if (starsCollected === 10) {
-                showStarReward();
+            if (memories.length === 0) {
+                container.innerHTML = `
+                    <div class="card" style="text-align: center; padding: 40px;">
+                        <i class="fas fa-ghost" style="font-size: 3rem; color: var(--silver); margin-bottom: 20px;"></i>
+                        <p style="color: var(--silver);">Пока нет воспоминаний. Как подозрительно пусто.</p>
+                    </div>
+                `;
+                return;
             }
-        }
 
-        function updateStarDisplay() {
-            document.getElementById('star-count').textContent = starsCollected;
-            document.getElementById('star-progress').style.width = (starsCollected * 10) + '%';
-        }
-
-        function showStarReward() {
-            const reward = document.createElement('div');
-            reward.innerHTML = `
-                <div style="
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, var(--ocean-deep), var(--coral));
-                    padding: 40px;
-                    border-radius: 20px;
-                    z-index: 10000;
-                    text-align: center;
-                    box-shadow: 0 0 50px rgba(255, 183, 64, 0.8);
-                    border: 3px solid var(--sand);
-                    max-width: 90%;
-                    width: 400px;
-                ">
-                    <h2 style="color: var(--sand); margin-bottom: 20px;">
-                        🎉 Поздравляем! 🎉
-                    </h2>
-                    <p style="color: white; font-size: 1.2em; margin-bottom: 20px;">
-                        Ты собрал все морские звезды! Ты настоящий искатель сокровищ!
-                    </p>
-                    <p style="color: var(--sand); font-style: italic;">
-                        "Любовь моя, ты заслуживаешь все звезды океана и даже больше"
-                    </p>
-                    <button onclick="this.parentNode.remove()"
-                            style="
-                                margin-top: 30px;
-                                padding: 10px 30px;
-                                background: var(--sand);
-                                color: var(--ocean-deep);
-                                border: none;
-                                border-radius: 25px;
-                                font-weight: bold;
-                                cursor: pointer;
-                            ">
-                        Получить награду
-                    </button>
+            container.innerHTML = memories.map(memory => `
+                <div class="memory-item">
+                    <div class="memory-date">
+                        <i class="fas fa-calendar-day"></i>
+                        ${new Date(memory.date).toLocaleDateString('ru-RU')}
+                    </div>
+                    <h4 style="color: var(--white); margin-bottom: 10px;">${memory.title}</h4>
+                    <p style="color: var(--silver);">${memory.description}</p>
                 </div>
-            `;
-
-            document.body.appendChild(reward);
-
-            // Фейерверк из морских звезд
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    createClickSeaElement(
-                        Math.random() * window.innerWidth,
-                        Math.random() * window.innerHeight
-                    );
-                }, i * 100);
-            }
-
-            // Сбрасываем счетчик
-            setTimeout(() => {
-                starsCollected = 0;
-                localStorage.setItem('marine_stars', '0');
-                updateStarDisplay();
-            }, 5000);
+            `).join('');
         }
 
-        // Дополнительные функции
-        function playOceanSound() {
-            // В реальном проекте здесь был бы звук моря
-            alert('🌊 Воображаемые звуки моря: ш-ш-шшш... волны бьются о берег... крики чаек...');
-        }
-
-        function changeTheme() {
-            document.body.classList.toggle('night-theme');
-            const moon = document.querySelector('.lighthouse');
-            if (moon) {
-                moon.innerHTML = document.body.classList.contains('night-theme') ?
-                    '🌙' : '💡';
-            }
-        }
-
-        function showSurprise() {
-            const loveMessages = [
-                "💙 Я люблю тебя больше, чем все океаны мира вместе взятые!",
-                "🐬 Ты — мой дельфин в море жизни!",
-                "⚓ Ты — мой якорь и мой парус одновременно!",
-                "🧜‍♀️ Для меня ты всегда будешь самой прекрасной русалкой!",
-                "💎 Ты — самое ценное сокровище в моей жизни!"
-            ];
-
-            const message = loveMessages[Math.floor(Math.random() * loveMessages.length)];
-
-            const surprise = document.createElement('div');
-            surprise.textContent = message;
-            surprise.style.position = 'fixed';
-            surprise.style.top = '20px';
-            surprise.style.left = '50%';
-            surprise.style.transform = 'translateX(-50%)';
-            surprise.style.background = 'linear-gradient(45deg, var(--coral), var(--sunset))';
-            surprise.style.color = 'white';
-            surprise.style.padding = '15px 30px';
-            surprise.style.borderRadius = '25px';
-            surprise.style.zIndex = '10000';
-            surprise.style.fontSize = '1.2em';
-            surprise.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
-            surprise.style.animation = 'fadeInUp 0.5s ease';
-
-            document.body.appendChild(surprise);
-
-            // Удаляем через 5 секунд
-            setTimeout(() => {
-                if (surprise.parentNode) {
-                    surprise.parentNode.removeChild(surprise);
-                }
-            }, 5000);
-
-            // Создаем волну кликов
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    createClickSeaElement(
-                        Math.random() * window.innerWidth,
-                        Math.random() * window.innerHeight
-                    );
-                }, i * 100);
-            }
-        }
-
-        // Обновляем счетчики
+        // Обновление счётчиков
         function updateCounters() {
             const days = calculateDaysTogether();
             document.getElementById('days-counter').textContent = days;
-            document.getElementById('days-together').textContent = days;
-
-            // Часы, минуты, секунды
-            const totalSeconds = days * 86400;
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds;
-
-            document.getElementById('hours-together').textContent = hours.toLocaleString();
-            document.getElementById('minutes-together').textContent = minutes.toLocaleString();
-            document.getElementById('seconds-together').textContent = seconds.toLocaleString();
         }
-
-        // Переопределяем клик для морских элементов
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A' &&
-                e.target.tagName !== 'BUTTON' &&
-                e.target.className !== 'treasure-chest' &&
-                e.target.className !== 'dolphin' &&
-                !e.target.closest('.dolphin') &&
-                !e.target.closest('.treasure-chest')) {
-                createClickSeaElement(e.clientX, e.clientY);
-            }
-        });
-
-        // Делаем так, чтобы при клике на дельфина собиралась звезда
-        document.querySelector('.dolphin').addEventListener('click', function(e) {
-            collectStar();
-            e.stopPropagation();
-        });
     </script>
 </body>
 </html>
